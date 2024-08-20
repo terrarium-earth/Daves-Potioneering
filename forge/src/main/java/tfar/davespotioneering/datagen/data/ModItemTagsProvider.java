@@ -34,5 +34,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItems.WHITELISTED)
                 .addTags(ItemTags.TOOLS)
                 .addOptional(modular_sword).addOptional(modular_single).addOptional(modular_double);
+        tag(ModItems.CATALYST).add(Items.DRAGON_BREATH);
     }
 }

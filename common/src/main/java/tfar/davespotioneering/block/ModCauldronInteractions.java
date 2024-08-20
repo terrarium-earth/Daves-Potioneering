@@ -192,7 +192,7 @@ public class ModCauldronInteractions {
         WATER.put(Items.YELLOW_SHULKER_BOX, CauldronInteraction.SHULKER_BOX);
 
         //custom//
-        WATER.put(Items.DRAGON_BREATH,ModCauldronInteractions::dragonsBreath);
+
         WATER.put(Items.ARROW, (state, level, pos, player, stack, stack2) -> arrowCoating(state, level, pos, player, stack2));
 
         for (Item item : BuiltInRegistries.ITEM) {
@@ -201,6 +201,9 @@ public class ModCauldronInteractions {
                 WATER.put(item, (state, level, pos, player, stack, stack2) -> weaponCoating(state, level, pos, player, stack2));
             } else if (item.isEdible()) {
                 WATER.put(item,ModCauldronInteractions::spikedFood);
+            } else if (item.builtInRegistryHolder().is(ModItems.CATALYST)) {
+                WATER.put(item,ModCauldronInteractions::dragonsBreath);
+
             }
         }
 
@@ -295,10 +298,11 @@ public class ModCauldronInteractions {
                 player.awardStat(Stats.USE_CAULDRON);
                 stack.shrink(1);
 
-                ItemStack stack1 = new ItemStack(Items.GLASS_BOTTLE);
-
-                if (!player.getInventory().add(stack1)) {
-                    player.drop(stack1, false);
+                if (stack.getItem().hasCraftingRemainingItem()) {
+                    ItemStack stack1 = new ItemStack(stack.getItem().getCraftingRemainingItem());
+                    if (!player.getInventory().add(stack1)) {
+                        player.drop(stack1, false);
+                    }
                 }
             }
             level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);

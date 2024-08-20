@@ -53,6 +53,7 @@ public class ModItems {
 
     public static final TagKey<Item> BLACKLISTED = create(new ResourceLocation(DavesPotioneering.MODID,"blacklisted"));
     public static final TagKey<Item> WHITELISTED = create(new ResourceLocation(DavesPotioneering.MODID,"whitelisted"));
+    public static final TagKey<Item> CATALYST = create(new ResourceLocation(DavesPotioneering.MODID,"catalyst"));
 
     public static TagKey<Item> create(final ResourceLocation name) {
         return TagKey.create(Registries.ITEM, name);

@@ -23,14 +23,8 @@ public class ClientHooks {
     static final ResourceLocation RUDIMENTARY_3D = new ResourceLocation(DavesPotioneering.MODID,"item/3d/rudimentary_gauntlet");
     static final ResourceLocation NETHERITE_3D = new ResourceLocation(DavesPotioneering.MODID,"item/3d/netherite_gauntlet");
 
-    static final ResourceLocation POTIONEER_PERSPECTIVE = new ResourceLocation(DavesPotioneering.MODID,"item/perspective/potioneer_gauntlet");
-    static final ResourceLocation LIT_POTIONEER_PERSPECTIVE = new ResourceLocation(DavesPotioneering.MODID,"item/perspective/lit_potioneer_gauntlet");
-
     static final ResourceLocation POTIONEER_SPRITE = new ResourceLocation(DavesPotioneering.MODID,"item/sprite/potioneer_gauntlet");
     static final ResourceLocation LIT_POTIONEER_SPRITE = new ResourceLocation(DavesPotioneering.MODID,"item/sprite/lit_potioneer_gauntlet");
-
-
-    static final ResourceLocation RUDIMENTARY_SPRITE = new ResourceLocation(DavesPotioneering.MODID,"item/sprite/rudimentary_gauntlet");
 
 
     public static void onModelBake(Map<ResourceLocation, BakedModel> bakedTopLevelModels, ModelBakery modelBakery) {
