@@ -51,9 +51,9 @@ public class ModItems {
     public static final Item AGED_UMBRELLA = Services.PLATFORM.makeAgedUmbrella(baseUmbrella(),"aged");
 
 
-    public static final TagKey<Item> BLACKLISTED = create(new ResourceLocation(DavesPotioneering.MODID,"blacklisted"));
-    public static final TagKey<Item> WHITELISTED = create(new ResourceLocation(DavesPotioneering.MODID,"whitelisted"));
-    public static final TagKey<Item> CATALYST = create(new ResourceLocation(DavesPotioneering.MODID,"catalyst"));
+    public static final TagKey<Item> BLACKLISTED = create(ResourceLocation.fromNamespaceAndPath(DavesPotioneering.MODID,"blacklisted"));
+    public static final TagKey<Item> WHITELISTED = create(ResourceLocation.fromNamespaceAndPath(DavesPotioneering.MODID,"whitelisted"));
+    public static final TagKey<Item> CATALYST = create(ResourceLocation.fromNamespaceAndPath(DavesPotioneering.MODID,"catalyst"));
 
     public static TagKey<Item> create(final ResourceLocation name) {
         return TagKey.create(Registries.ITEM, name);

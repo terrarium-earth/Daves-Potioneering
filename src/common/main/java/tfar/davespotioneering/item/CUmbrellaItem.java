@@ -19,6 +19,7 @@ import java.util.Locale;
 
 public class CUmbrellaItem extends ShieldItem {
 
+    // TODO: Make Umbrella only bounce potions, not all attacks
     protected final String name;
     protected final String style;
 

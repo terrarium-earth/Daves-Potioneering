@@ -1,15 +1,16 @@
 package tfar.davespotioneering;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import tfar.davespotioneering.init.ModItems;
 import tfar.davespotioneering.mixin.ItemAccess;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Util {
@@ -42,7 +43,7 @@ public class Util {
             if (stack.is(ModItems.WHITELISTED)) {
                 return TOOL;
             }
-            else if (stack.getItem().isEdible()) {
+            else if (stack.has(DataComponents.FOOD)) {
                 return FOOD;
             }
             return null;
