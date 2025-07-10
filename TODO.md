@@ -18,7 +18,7 @@
   - Consolidate to common (relatively painless)
 
 ### Client
-- [ ] Update Gauntlet item models (Investigate if we can consolidate to common)
+- [ ] Update 3D item models (Investigate if we can consolidate to common)
 - [ ] GeoItemModel seems duplicated?
 
 ### Umbrella
