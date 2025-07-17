@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BrewingStandBlock;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +32,7 @@ import tfar.davespotioneering.menu.CAdvancedBrewingStandMenu;
 
 import java.util.Arrays;
 
-public abstract class CAdvancedBrewingStandBlockEntity extends BlockEntity implements MenuProvider, Nameable, BrewingStandDuck {
+public abstract class CAdvancedBrewingStandBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, BrewingStandDuck {
 
     public static final int FUEL_USES = 40;
     public static final int DATA_BREW_TIME = 0;

@@ -1,0 +1,174 @@
+package tfar.davespotioneering.blockentity;
+
+import com.google.common.collect.Sets;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import tfar.davespotioneering.Util;
+import tfar.davespotioneering.duck.BrewingStandDuck;
+
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+
+public class AdvancedBrewingStandBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, BrewingStandDuck {
+
+    private static final int BREW_TIME = 200;
+    private static final int FUEL_USES = 40;
+    private static final int DATA_BREW_TIME = 0;
+    private static final int DATA_FUEL_USES = 1;
+    //potions are 0,1,2
+    private static final int[] POTION_SLOTS = new int[]{0, 1, 2};
+    //ingredients are 3,4,5,6,7
+    private static final int[] INGREDIENT_SLOTS = new int[]{3,4,5,6,7};
+    //fuel is 8
+    private static final int FUEL_SLOT = 8;
+    private static final int[] INGREDIENT_AND_POTION_SLOTS;
+    private static final int[] FUEL_AND_POTION_SLOTS;
+
+    static {
+        Set<Integer> ingSet = Arrays.stream(INGREDIENT_SLOTS).boxed().collect(Collectors.toSet());
+        Set<Integer> potSet = Arrays.stream(POTION_SLOTS).boxed().collect(Collectors.toSet());
+        Set<Integer> union = Sets.union(ingSet,potSet);
+        INGREDIENT_AND_POTION_SLOTS = union.stream().mapToInt(i -> i).toArray();
+
+        Set<Integer> potion_fuel = new HashSet<>(potSet);
+        potion_fuel.add(AdvancedBrewingStandBlockEntity.FUEL);
+        FUEL_AND_POTION_SLOTS = potion_fuel.stream().mapToInt(i -> i).toArray();
+    }
+
+
+    private NonNullList<ItemStack> items = NonNullList.withSize(POTION_SLOTS.length + INGREDIENT_SLOTS.length + 1, ItemStack.EMPTY);
+
+    private int storedXp;
+    @Nullable
+    private Component name;
+
+    protected int brewTime;
+    protected int fuel;
+    protected final ContainerData data = new ContainerData() {
+        public int get(int index) {
+            switch(index) {
+                case DATA_BREW_TIME:
+                    return brewTime;
+                case DATA_FUEL_USES:
+                    return fuel;
+                default:
+                    return 0;
+            }
+        }
+
+        public void set(int index, int value) {
+            switch(index) {
+                case DATA_BREW_TIME:
+                    brewTime = value;
+                    break;
+                case DATA_FUEL_USES:
+                    fuel = value;
+            }
+
+        }
+
+        public int getCount() {
+            return 2;
+        }
+    };
+
+    public void setCustomName(Component name) {
+        this.name = name;
+    }
+
+    public Component getName() {
+        return this.name != null ? this.name : this.getDefaultName();
+    }
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.translatable("container.davespotioneering.compound_brewing");
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return this.getName();
+    }
+
+    @Nullable
+    @Override
+    public Component getCustomName() {
+        return this.name;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return this.items.size();
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.items;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction direction) {
+        switch (direction) {
+            case UP -> {
+                return INGREDIENT_SLOTS;
+            }
+            case DOWN -> {
+                return INGREDIENT_AND_POTION_SLOTS;
+            }
+            default -> {
+                return FUEL_AND_POTION_SLOTS;
+            }
+        }
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return super.canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction direction) {
+        return this.canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
+        return false;
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
+        return null;
+    }
+
+    @Override
+    public void addXp(double xp) {
+        this.storedXp += xp;
+    }
+
+    @Override
+    public void dump(Player player) {
+        if (this.storedXp > 0) {
+            Util.splitAndSpawnExperience(getLevel(), player.position(), this.storedXp);
+            this.storedXp = 0;
+            setChanged();
+        }
+    }
+}
