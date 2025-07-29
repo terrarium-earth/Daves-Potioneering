@@ -5,8 +5,8 @@
 - [ ] AdvancedBrewingStandBlockEntity
   - Consolidate to common
     - Neoforge considerations
-      - Need to fire events for attempt brew and after brew
-      - Register InvWrapper/SidedInvWrapper capability
+      - [x] Need to fire events for attempt brew and after brew
+      - [ ] Register InvWrapper/SidedInvWrapper capability
 - [ ] PotionInjectorBlockEntity
   - Consolidate to common
     - Neoforge considerations

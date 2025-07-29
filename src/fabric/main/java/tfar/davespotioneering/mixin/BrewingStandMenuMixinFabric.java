@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import tfar.davespotioneering.menu.CAdvancedBrewingStandMenu;
+import tfar.davespotioneering.menu.AdvancedBrewingStandMenu;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +21,7 @@ public abstract class BrewingStandMenuMixinFabric extends AbstractContainerMenu 
     //this is required because the brewing stand on fabric doesn't respect max stack sizes
     @Override
     protected boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-        return CAdvancedBrewingStandMenu.patchedMoveTo(this,stack,startIndex,endIndex,reverseDirection);
+        return AdvancedBrewingStandMenu.patchedMoveTo(this,stack,startIndex,endIndex,reverseDirection);
     }
 
     /**

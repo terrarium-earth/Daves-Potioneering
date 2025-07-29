@@ -9,13 +9,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockState;
-import tfar.davespotioneering.blockentity.CAdvancedBrewingStandBlockEntity;
 import tfar.davespotioneering.blockentity.CPotionInjectorBlockEntity;
 import tfar.davespotioneering.blockentity.CReinforcedCauldronBlockEntity;
 import tfar.davespotioneering.client.HudPreset;
 import tfar.davespotioneering.inventory.BasicInventoryBridge;
 import tfar.davespotioneering.inventory.RespectfulSlot;
-import tfar.davespotioneering.item.CGauntletItem;
 
 import java.util.Locale;
 

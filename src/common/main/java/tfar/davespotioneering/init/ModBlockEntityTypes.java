@@ -1,7 +1,6 @@
 package tfar.davespotioneering.init;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import tfar.davespotioneering.blockentity.CAdvancedBrewingStandBlockEntity;
 import tfar.davespotioneering.blockentity.CReinforcedCauldronBlockEntity;
 import tfar.davespotioneering.blockentity.CPotionInjectorBlockEntity;
 import tfar.davespotioneering.platform.Services;

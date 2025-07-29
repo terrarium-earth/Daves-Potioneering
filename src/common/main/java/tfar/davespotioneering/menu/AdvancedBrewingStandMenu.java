@@ -1,5 +1,7 @@
 package tfar.davespotioneering.menu;
 
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -8,23 +10,22 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import tfar.davespotioneering.DavesPotioneering;
-import tfar.davespotioneering.blockentity.CAdvancedBrewingStandBlockEntity;
+import tfar.davespotioneering.blockentity.AdvancedBrewingStandBlockEntity;
 import tfar.davespotioneering.init.ModMenuTypes;
-import tfar.davespotioneering.inventory.BasicInventoryBridge;
 import tfar.davespotioneering.platform.Services;
 
-public class CAdvancedBrewingStandMenu extends AbstractContainerMenu {
+public class AdvancedBrewingStandMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
-    public CAdvancedBrewingStandBlockEntity blockEntity;
+    public AdvancedBrewingStandBlockEntity blockEntity;
 
     //client
-    public CAdvancedBrewingStandMenu(int id, Inventory playerInventory) {
-        this(id, playerInventory, Services.PLATFORM.makeBrewingHandler(CAdvancedBrewingStandBlockEntity.SLOTS), new SimpleContainerData(2),null);
+    public AdvancedBrewingStandMenu(int id, Inventory playerInventory) {
+        this(id, playerInventory, new SimpleContainer(AdvancedBrewingStandBlockEntity.NUM_SLOTS), new SimpleContainerData(2),null);
     }
 
     //common
-    public CAdvancedBrewingStandMenu(int id, Inventory playerInventory, BasicInventoryBridge inventory, ContainerData data, CAdvancedBrewingStandBlockEntity advancedBrewingStandBlockEntity) {
+    public AdvancedBrewingStandMenu(int id, Inventory playerInventory, Container container, ContainerData data, AdvancedBrewingStandBlockEntity advancedBrewingStandBlockEntity) {
         super(ModMenuTypes.ADVANCED_BREWING_STAND, id);
        // assertInventorySize(inventory, 5);
        // assertIntArraySize(data, 2);
@@ -34,20 +35,20 @@ public class CAdvancedBrewingStandMenu extends AbstractContainerMenu {
 
         int potY = 77;
 
-        this.addSlot(Services.PLATFORM.makePotSlot(inventory, 0, 56, potY));
-        this.addSlot(Services.PLATFORM.makePotSlot(inventory, 1, 79, potY + 7));
-        this.addSlot(Services.PLATFORM.makePotSlot(inventory, 2, 102, potY));
+        this.addSlot(Services.PLATFORM.makePotSlot(container, 0, 56, potY));
+        this.addSlot(Services.PLATFORM.makePotSlot(container, 1, 79, potY + 7));
+        this.addSlot(Services.PLATFORM.makePotSlot(container, 2, 102, potY));
 
 
         for (int i = 3; i < 3 + 4;i++) {
-            this.addSlot(Services.PLATFORM.makeIngSlot(inventory, i, 22 * i - 20, 17));
+            this.addSlot(Services.PLATFORM.makeIngSlot(container, i, 22 * i - 20, 17));
         }
 
         int ing1 = 43;
 
-        this.addSlot(Services.PLATFORM.makeIngSlot(inventory, 7, 79, ing1));
+        this.addSlot(Services.PLATFORM.makeIngSlot(container, 7, 79, ing1));
 
-        this.addSlot(Services.PLATFORM.makeFuelSlot(inventory, CAdvancedBrewingStandBlockEntity.FUEL, 17, ing1));
+        this.addSlot(Services.PLATFORM.makeFuelSlot(container, CAdvancedBrewingStandBlockEntity.FUEL, 17, ing1));
 
         this.addDataSlots(data);
 
@@ -154,7 +155,7 @@ public class CAdvancedBrewingStandMenu extends AbstractContainerMenu {
 
                 Slot slot = menu.slots.get(i);
                 ItemStack itemstack = slot.getItem();
-                if (!itemstack.isEmpty() && ItemStack.isSameItemSameTags(pStack, itemstack)) {
+                if (!itemstack.isEmpty() && ItemStack.isSameItemSameComponents(pStack, itemstack)) {
                     int j = itemstack.getCount() + pStack.getCount();
                     int maxSize = Math.min(slot.getMaxStackSize(), pStack.getMaxStackSize());
                     if (j <= maxSize) {

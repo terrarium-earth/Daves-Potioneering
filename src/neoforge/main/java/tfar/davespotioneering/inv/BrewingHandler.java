@@ -1,8 +1,6 @@
 package tfar.davespotioneering.inv;
 
 import com.google.common.collect.Sets;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -12,8 +10,6 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.davespotioneering.ForgeUtil;
-import tfar.davespotioneering.blockentity.AdvancedBrewingStandBlockEntity;
-import tfar.davespotioneering.inventory.BasicInventoryBridge;
 
 import java.util.Arrays;
 import java.util.HashSet;

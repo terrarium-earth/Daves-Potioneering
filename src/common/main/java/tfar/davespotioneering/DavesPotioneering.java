@@ -21,7 +21,7 @@ import tfar.davespotioneering.block.ModCauldronInteractions;
 import tfar.davespotioneering.duck.BrewingStandDuck;
 import tfar.davespotioneering.init.*;
 import tfar.davespotioneering.item.CUmbrellaItem;
-import tfar.davespotioneering.menu.CAdvancedBrewingStandMenu;
+import tfar.davespotioneering.menu.AdvancedBrewingStandMenu;
 import tfar.davespotioneering.mixin.BlockEntityTypeAcces;
 import tfar.davespotioneering.mixin.BrewingStandContainerAccess;
 import tfar.davespotioneering.platform.Services;
@@ -96,8 +96,8 @@ public class DavesPotioneering {
             BlockEntity entity = null;
             if (container instanceof BrewingStandMenu) {
                 entity = (BrewingStandBlockEntity) ((BrewingStandContainerAccess) container).getBrewingStand();
-            } else if (container instanceof CAdvancedBrewingStandMenu) {
-                entity = ((CAdvancedBrewingStandMenu) container).blockEntity;
+            } else if (container instanceof AdvancedBrewingStandMenu) {
+                entity = ((AdvancedBrewingStandMenu) container).blockEntity;
             }
 
             if (entity != null) {

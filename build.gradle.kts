@@ -86,7 +86,8 @@ cloche {
         }
 
         data()
-        client()
+        //client()
+        includedClient()
 
         dependencies {
             fabricApi("0.115.2")

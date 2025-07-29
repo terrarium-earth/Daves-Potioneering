@@ -202,7 +202,7 @@ public class CPotionInjectorMenu extends AbstractContainerMenu {
      */
     protected boolean moveItemStackTo(ItemStack pStack, int pStartIndex, int pEndIndex, boolean pReverseDirection) {
         if (DavesPotioneering.isFabric) {
-            return CAdvancedBrewingStandMenu.patchedMoveTo(this,pStack,pStartIndex,pEndIndex,pReverseDirection);
+            return AdvancedBrewingStandMenu.patchedMoveTo(this,pStack,pStartIndex,pEndIndex,pReverseDirection);
         }
         //don't use the patch on forge
         return super.moveItemStackTo(pStack,pStartIndex,pEndIndex,pReverseDirection);

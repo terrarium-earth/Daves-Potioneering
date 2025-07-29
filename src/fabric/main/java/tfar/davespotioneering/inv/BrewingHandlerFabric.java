@@ -1,25 +1,18 @@
 package tfar.davespotioneering.inv;
 
 import com.google.common.collect.Sets;
-import net.minecraft.world.ContainerHelper;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.davespotioneering.FabricUtil;
-import tfar.davespotioneering.blockentity.AdvancedBrewingStandBlockEntity;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
-import tfar.davespotioneering.inventory.BasicInventoryBridge;
 
 public class BrewingHandlerFabric extends BridgedSimpleContainer {
 
