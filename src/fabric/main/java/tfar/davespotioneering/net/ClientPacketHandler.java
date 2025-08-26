@@ -12,13 +12,6 @@ import java.util.stream.IntStream;
 public class ClientPacketHandler {
 
     public static void registerClientMessages() {
-        ClientPlayNetworking.registerGlobalReceiver(PacketHandler.gauntlet_cooldowns,ClientPacketHandler::handleCooldowns);
-    }
-
-    private static void handleCooldowns(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
-        int size = buf.readInt();
-        int[] cooldowns = new int[size];
-        IntStream.range(0,size).forEach(i -> cooldowns[i] = buf.readInt());
-        client.execute(() -> GauntletHUDCommon.cooldowns = cooldowns);
+        ClientPlayNetworking.registerGlobalReceiver(S2CGauntletCooldownsPacket.PACKET_TYPE, (packet, context) -> S2CGauntletCooldownsPacket.apply(packet));
     }
 }

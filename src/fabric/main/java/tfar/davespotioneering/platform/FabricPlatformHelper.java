@@ -1,5 +1,6 @@
 package tfar.davespotioneering.platform;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.BrewingStandMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.state.BlockState;
 import tfar.davespotioneering.DavesPotioneering;
 import tfar.davespotioneering.DavesPotioneeringFabric;
@@ -21,10 +21,8 @@ import tfar.davespotioneering.inv.BrewingHandlerFabric;
 import tfar.davespotioneering.inv.PotionInjectorHandlerFabric;
 import tfar.davespotioneering.inventory.BasicInventoryBridge;
 import tfar.davespotioneering.inventory.SlightlyLargerPotionSlot;
-import tfar.davespotioneering.item.CGauntletItem;
 import tfar.davespotioneering.item.UmbrellaItem;
 import tfar.davespotioneering.net.C2SGauntletCyclePacket;
-import tfar.davespotioneering.net.C2SPotionInjector;
 import tfar.davespotioneering.net.PacketHandler;
 import tfar.davespotioneering.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -110,7 +108,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public void cycleGauntlet(boolean up) {
-        C2SGauntletCyclePacket.encode(up);
+        ClientPlayNetworking.send(new C2SGauntletCyclePacket(up));
     }
 
     @Override

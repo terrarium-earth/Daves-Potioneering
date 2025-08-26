@@ -26,7 +26,7 @@
 - [ ] Consolidate renderer
 
 ### Networking
-- [ ] Investigate if we can consolidate net code
+- [x] Investigate if we can consolidate net code
 
 ### Platform
 - [ ] Remove platform service provider

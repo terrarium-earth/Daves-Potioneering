@@ -42,6 +42,7 @@ public class DavesPotioneeringFabric implements ModInitializer {
         Util.setStackSize(Items.LINGERING_POTION, DavesPotioneeringFabric.CONFIG.lingering_potion_stack_size);
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> DavesPotioneering.tagsUpdated());
 
+        PacketHandler.registerPayloadTypes();
         PacketHandler.registerMessages();
         DavesPotioneering.commonSetup();
     }

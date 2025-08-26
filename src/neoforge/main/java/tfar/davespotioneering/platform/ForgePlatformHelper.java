@@ -15,6 +15,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
 import tfar.davespotioneering.DavesPotioneering;
 import tfar.davespotioneering.DavesPotioneeringForge;
@@ -156,7 +157,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public void cycleGauntlet(boolean up) {
-        PacketHandler.sendToServer(new C2SGauntletCyclePacket(up));
+        PacketDistributor.sendToServer(new C2SGauntletCyclePacket(up));
     }
 
     @Override

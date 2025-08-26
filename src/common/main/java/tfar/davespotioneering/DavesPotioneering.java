@@ -1,6 +1,7 @@
 package tfar.davespotioneering;
 
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -142,5 +143,9 @@ public class DavesPotioneering {
         String s = df.format(ms);
 
         LOG.info("Took " + s + " ms to reload cauldron interactions");
+    }
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

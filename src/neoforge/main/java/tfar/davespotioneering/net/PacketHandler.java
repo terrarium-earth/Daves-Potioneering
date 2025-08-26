@@ -2,48 +2,35 @@ package tfar.davespotioneering.net;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import tfar.davespotioneering.DavesPotioneering;
 
+@EventBusSubscriber(modid = DavesPotioneering.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class PacketHandler {
-    public static SimpleChannel INSTANCE;
 
-    public static void registerMessages() {
-        int id = 0;
+    @SubscribeEvent
+    public static void registerPayloadHandlers(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
 
-        INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(DavesPotioneering.MODID, DavesPotioneering.MODID), () -> "1.0", s -> true, s -> true);
+        registrar.playToServer(
+                C2SGauntletCyclePacket.PACKET_TYPE,
+                C2SGauntletCyclePacket.STREAM_CODEC,
+                (packet, context) -> C2SGauntletCyclePacket.apply((ServerPlayer) context.player(), packet)
+        );
 
-        INSTANCE.registerMessage(id++, C2SPotionInjector.class,
-                C2SPotionInjector::encode,
-                C2SPotionInjector::new,
-                C2SPotionInjector::handle);
+        registrar.playToServer(
+                C2SPotionInjectorPacket.PACKET_TYPE,
+                C2SPotionInjectorPacket.STREAM_CODEC,
+                (packet, context) -> C2SPotionInjectorPacket.apply((ServerPlayer) context.player(), packet)
+        );
 
-        INSTANCE.registerMessage(id++, C2SGauntletCyclePacket.class,
-                C2SGauntletCyclePacket::encode,
-                C2SGauntletCyclePacket::new,
-                C2SGauntletCyclePacket::handle);
-
-        INSTANCE.registerMessage(id++, S2COpenGauntletHUDConfigScreenPacket.class,
-                (packetOpenGui, packetBuffer) -> {},
-                buf -> new S2COpenGauntletHUDConfigScreenPacket(),
-                S2COpenGauntletHUDConfigScreenPacket::handle);
-
-
-        INSTANCE.registerMessage(id++,
-                S2CCooldownPacket.class,
-                S2CCooldownPacket::encode,
-                S2CCooldownPacket::new,
-                S2CCooldownPacket::handle);
-
-    }
-
-    public static void sendToClient(Object packet, ServerPlayer player) {
-        INSTANCE.sendTo(packet, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-    }
-
-    public static void sendToServer(Object packet) {
-        INSTANCE.sendToServer(packet);
+        registrar.playToClient(
+                S2CGauntletCooldownsPacket.PACKET_TYPE,
+                S2CGauntletCooldownsPacket.STREAM_CODEC,
+                (packet, context) -> S2CGauntletCooldownsPacket.apply(packet)
+        );
     }
 }
