@@ -31,6 +31,11 @@ repositories {
 cloche {
     minecraftVersion = "1.21.1"
 
+    mappings {
+        official()
+        parchment("2024.11.17")
+    }
+
     metadata {
         modId = "davespotioneering"
         name = "Dave's Potioneering"
