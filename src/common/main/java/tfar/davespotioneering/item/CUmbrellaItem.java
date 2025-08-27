@@ -34,7 +34,8 @@ public class CUmbrellaItem extends ShieldItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, tooltipContext, tooltip, tooltipFlag);
         tooltip.add(Component.literal(style));
 
         tooltip.add(Component.translatable(getDescriptionId()+".desc"));
