@@ -27,8 +27,6 @@ public class AdvancedBrewingStandMenu extends AbstractContainerMenu {
     //common
     public AdvancedBrewingStandMenu(int id, Inventory playerInventory, Container container, ContainerData data, AdvancedBrewingStandBlockEntity advancedBrewingStandBlockEntity) {
         super(ModMenuTypes.ADVANCED_BREWING_STAND, id);
-       // assertInventorySize(inventory, 5);
-       // assertIntArraySize(data, 2);
         this.data = data;
 
         this.blockEntity = advancedBrewingStandBlockEntity;
@@ -48,7 +46,7 @@ public class AdvancedBrewingStandMenu extends AbstractContainerMenu {
 
         this.addSlot(Services.PLATFORM.makeIngSlot(container, 7, 79, ing1));
 
-        this.addSlot(Services.PLATFORM.makeFuelSlot(container, CAdvancedBrewingStandBlockEntity.FUEL, 17, ing1));
+        this.addSlot(Services.PLATFORM.makeFuelSlot(container, AdvancedBrewingStandBlockEntity.FUEL_SLOT, 17, ing1));
 
         this.addDataSlots(data);
 
@@ -80,15 +78,15 @@ public class AdvancedBrewingStandMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack slotStack = slot.getItem();
             itemstack = slotStack.copy();
-            if (index < CAdvancedBrewingStandBlockEntity.SLOTS) {
-                if (!this.moveItemStackTo(slotStack, CAdvancedBrewingStandBlockEntity.SLOTS, 41, false)) {
+            if (index < AdvancedBrewingStandBlockEntity.NUM_SLOTS) {
+                if (!this.moveItemStackTo(slotStack, AdvancedBrewingStandBlockEntity.NUM_SLOTS, 41, false)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                if (!this.moveItemStackTo(slotStack, 0, CAdvancedBrewingStandBlockEntity.SLOTS, true)) {
+                if (!this.moveItemStackTo(slotStack, 0, AdvancedBrewingStandBlockEntity.NUM_SLOTS, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickCraft(slotStack, itemstack);
@@ -221,11 +219,11 @@ public class AdvancedBrewingStandMenu extends AbstractContainerMenu {
     }
 
     public int getFuel() {
-        return this.data.get(CAdvancedBrewingStandBlockEntity.DATA_FUEL_USES);
+        return this.data.get(AdvancedBrewingStandBlockEntity.DATA_FUEL_USES);
     }
 
     public int getBrewTime() {
-        return this.data.get(CAdvancedBrewingStandBlockEntity.DATA_BREW_TIME);
+        return this.data.get(AdvancedBrewingStandBlockEntity.DATA_BREW_TIME);
     }
 
 }

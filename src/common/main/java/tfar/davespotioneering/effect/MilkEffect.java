@@ -11,7 +11,8 @@ public class MilkEffect extends InstantenousMobEffect {
 
 
     @Override
-    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         entityLivingBaseIn.removeAllEffects();
+        return true;
     }
 }

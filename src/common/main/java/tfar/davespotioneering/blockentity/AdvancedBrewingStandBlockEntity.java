@@ -42,18 +42,18 @@ import java.util.stream.Collectors;
 
 public class AdvancedBrewingStandBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, BrewingStandDuck {
 
-    private static final int BREW_TIME = 200;
-    private static final int FUEL_USES = 40;
-    private static final int DATA_BREW_TIME = 0;
-    private static final int DATA_FUEL_USES = 1;
+    public static final int BREW_TIME = 200;
+    public static final int FUEL_USES = 40;
+    public static final int DATA_BREW_TIME = 0;
+    public static final int DATA_FUEL_USES = 1;
     //potions are 0,1,2
-    private static final int[] POTION_SLOTS = new int[]{0, 1, 2};
+    public static final int[] POTION_SLOTS = new int[]{0, 1, 2};
     //ingredients are 3,4,5,6,7
-    private static final int[] INGREDIENT_SLOTS = new int[]{3,4,5,6,7};
+    public static final int[] INGREDIENT_SLOTS = new int[]{3,4,5,6,7};
     //fuel is 8
-    private static final int FUEL_SLOT = 8;
-    private static final int[] INGREDIENT_AND_POTION_SLOTS;
-    private static final int[] FUEL_AND_POTION_SLOTS;
+    public static final int FUEL_SLOT = 8;
+    public static final int[] INGREDIENT_AND_POTION_SLOTS;
+    public static final int[] FUEL_AND_POTION_SLOTS;
     public static final int NUM_SLOTS = POTION_SLOTS.length + INGREDIENT_SLOTS.length + 1; // Plus 1 because FUEL_SLOT
 
     static {
@@ -75,6 +75,8 @@ public class AdvancedBrewingStandBlockEntity extends BaseContainerBlockEntity im
     private Component name;
 
     protected int brewTime;
+    /** used to check if the current ingredient has been removed from the brewing stand during brewing */
+    protected Item ingredient;
     protected int fuel;
     protected final ContainerData data = new ContainerData() {
         public int get(int index) {
@@ -153,6 +155,27 @@ public class AdvancedBrewingStandBlockEntity extends BaseContainerBlockEntity im
             blockEntity.fuel = FUEL_USES;
             fuelStack.shrink(1);
             setChanged(level, blockPos, blockState);
+        }
+
+        boolean canBrew = isBrewable(level.potionBrewing(), blockEntity.items);
+        boolean brewing = blockEntity.brewTime > 0;
+        ItemStack ing = getPriorityIngredient(level.potionBrewing(), blockEntity.items).getRight();
+        if (brewing) {
+            blockEntity.brewTime--;
+            boolean done = blockEntity.brewTime == 0;
+            if (done && canBrew) {
+                brewPotions(level, blockPos, blockEntity.items);
+            } else if (!canBrew) {
+                blockEntity.brewTime = 0;
+            } else if (blockEntity.ingredient != ing.getItem()) {
+                blockEntity.brewTime = 0;
+            }
+            blockEntity.setChanged();
+        } else if (canBrew && blockEntity.fuel > 0) {
+            blockEntity.fuel--;
+            blockEntity.brewTime = BREW_TIME;
+            blockEntity.ingredient = ing.getItem();
+            blockEntity.setChanged();
         }
     }
 
