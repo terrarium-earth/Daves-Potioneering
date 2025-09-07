@@ -1,6 +1,7 @@
 package tfar.davespotioneering.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -44,14 +45,14 @@ public abstract class CPotionInjectorBlockEntity extends BlockEntity implements 
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
-        compound.put("inv",handler.$save());
-        super.saveAdditional(compound);
+    public void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+        compound.put("inv", handler.$save(provider));
+        super.saveAdditional(compound, provider);
     }
 
     @Override
-    public void load(CompoundTag nbt) {
-        handler.$load(nbt.getCompound("inv"));
-        super.load(nbt);
+    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+        handler.$load(nbt.getCompound("inv"), provider);
+        super.loadAdditional(nbt, provider);
     }
 }

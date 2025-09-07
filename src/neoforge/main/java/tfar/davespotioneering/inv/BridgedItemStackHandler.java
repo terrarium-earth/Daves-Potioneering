@@ -1,9 +1,10 @@
 package tfar.davespotioneering.inv;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import tfar.davespotioneering.inventory.BasicInventoryBridge;
 
 public class BridgedItemStackHandler extends ItemStackHandler implements BasicInventoryBridge {
@@ -38,13 +39,13 @@ public class BridgedItemStackHandler extends ItemStackHandler implements BasicIn
     }
 
     @Override
-    public CompoundTag $save() {
-        return serializeNBT();
+    public CompoundTag $save(HolderLookup.Provider provider) {
+        return serializeNBT(provider);
     }
 
     @Override
-    public void $load(CompoundTag tag) {
-        deserializeNBT(tag);
+    public void $load(CompoundTag tag, HolderLookup.Provider provider) {
+        deserializeNBT(provider, tag);
     }
 
     @Override

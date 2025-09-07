@@ -1,5 +1,6 @@
 package tfar.davespotioneering.inventory;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -13,8 +14,8 @@ public interface BasicInventoryBridge {
     int $getSlots();
     int $getSlotLimit(int slot);
 
-    CompoundTag $save();
-    void $load(CompoundTag tag);
+    CompoundTag $save(HolderLookup.Provider provider);
+    void $load(CompoundTag tag, HolderLookup.Provider provider);
     ItemStack $extractItem(int slot, int amount,boolean simulate);
     ItemStack $insertItem(int slot,ItemStack stack,boolean simulate);
 

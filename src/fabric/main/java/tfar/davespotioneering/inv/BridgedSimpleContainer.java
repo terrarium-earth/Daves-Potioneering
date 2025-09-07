@@ -1,11 +1,11 @@
 package tfar.davespotioneering.inv;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import tfar.davespotioneering.inventory.BasicInventoryBridge;
 
 public class BridgedSimpleContainer extends SimpleContainer implements BasicInventoryBridge {
@@ -124,7 +124,7 @@ public class BridgedSimpleContainer extends SimpleContainer implements BasicInve
         return getMaxStackSize();
     }
 
-    protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+    protected int getStackLimit(int slot, ItemStack stack) {
         return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
     }
 
@@ -134,7 +134,7 @@ public class BridgedSimpleContainer extends SimpleContainer implements BasicInve
     }
 
     @Override
-    public void $load(CompoundTag tag) {
+    public void $load(CompoundTag tag, HolderLookup.Provider provider) {
         ContainerHelper.loadAllItems(tag,$getStacks());
     }
 }
